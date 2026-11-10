@@ -1,0 +1,781 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 9,
+    "identityHash": "361f67f58d9e60e54e2b27f71c770448",
+    "entities": [
+      {
+        "tableName": "nodes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nodeNum` INTEGER NOT NULL, `userId` TEXT, `longName` TEXT, `shortName` TEXT, `hwModel` TEXT, `role` TEXT, `latitude` REAL, `longitude` REAL, `altitude` INTEGER, `positionTime` INTEGER, `positionPrecisionBits` INTEGER, `groundSpeed` INTEGER, `groundTrack` INTEGER, `batteryLevel` INTEGER, `voltage` REAL, `channelUtil` REAL, `airUtilTx` REAL, `uptimeSeconds` INTEGER, `temperature` REAL, `humidity` REAL, `pressure` REAL, `snr` REAL, `rssi` INTEGER, `hopsAway` INTEGER, `viaMqtt` INTEGER NOT NULL, `firstSeen` INTEGER NOT NULL, `lastHeard` INTEGER NOT NULL, `ignored` INTEGER NOT NULL, PRIMARY KEY(`nodeNum`))",
+        "fields": [
+          {
+            "fieldPath": "nodeNum",
+            "columnName": "nodeNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "longName",
+            "columnName": "longName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "shortName",
+            "columnName": "shortName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hwModel",
+            "columnName": "hwModel",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "role",
+            "columnName": "role",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "altitude",
+            "columnName": "altitude",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "positionTime",
+            "columnName": "positionTime",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "positionPrecisionBits",
+            "columnName": "positionPrecisionBits",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "groundSpeed",
+            "columnName": "groundSpeed",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "groundTrack",
+            "columnName": "groundTrack",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "batteryLevel",
+            "columnName": "batteryLevel",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "voltage",
+            "columnName": "voltage",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "channelUtil",
+            "columnName": "channelUtil",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "airUtilTx",
+            "columnName": "airUtilTx",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "uptimeSeconds",
+            "columnName": "uptimeSeconds",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "temperature",
+            "columnName": "temperature",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "humidity",
+            "columnName": "humidity",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "pressure",
+            "columnName": "pressure",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "snr",
+            "columnName": "snr",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rssi",
+            "columnName": "rssi",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hopsAway",
+            "columnName": "hopsAway",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "viaMqtt",
+            "columnName": "viaMqtt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstSeen",
+            "columnName": "firstSeen",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastHeard",
+            "columnName": "lastHeard",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ignored",
+            "columnName": "ignored",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "nodeNum"
+          ]
+        }
+      },
+      {
+        "tableName": "messages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `packetId` INTEGER NOT NULL, `channel` INTEGER NOT NULL, `fromNode` INTEGER NOT NULL, `toNode` INTEGER NOT NULL, `text` TEXT NOT NULL, `rxTime` INTEGER NOT NULL, `rxSnr` REAL, `rxRssi` INTEGER, `hopsAway` INTEGER, `viaMqtt` INTEGER NOT NULL, `origin` TEXT NOT NULL, `read` INTEGER NOT NULL DEFAULT 1)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packetId",
+            "columnName": "packetId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "channel",
+            "columnName": "channel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fromNode",
+            "columnName": "fromNode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toNode",
+            "columnName": "toNode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rxTime",
+            "columnName": "rxTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rxSnr",
+            "columnName": "rxSnr",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rxRssi",
+            "columnName": "rxRssi",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hopsAway",
+            "columnName": "hopsAway",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "viaMqtt",
+            "columnName": "viaMqtt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "read",
+            "columnName": "read",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_messages_rxTime",
+            "unique": false,
+            "columnNames": [
+              "rxTime"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_messages_rxTime` ON `${TABLE_NAME}` (`rxTime`)"
+          },
+          {
+            "name": "index_messages_fromNode",
+            "unique": false,
+            "columnNames": [
+              "fromNode"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_messages_fromNode` ON `${TABLE_NAME}` (`fromNode`)"
+          }
+        ]
+      },
+      {
+        "tableName": "models",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `url` TEXT, `fileName` TEXT NOT NULL, `sizeBytes` INTEGER, `sha256` TEXT, `source` TEXT NOT NULL, `downloadId` INTEGER, `verified` INTEGER NOT NULL, `addedAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fileName",
+            "columnName": "fileName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sizeBytes",
+            "columnName": "sizeBytes",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sha256",
+            "columnName": "sha256",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downloadId",
+            "columnName": "downloadId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "verified",
+            "columnName": "verified",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "addedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "characters",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `longName` TEXT NOT NULL, `shortName` TEXT NOT NULL, `nicknames` TEXT NOT NULL, `persona` TEXT NOT NULL, `examples` TEXT NOT NULL, `rules` TEXT NOT NULL, `eagerness` INTEGER NOT NULL, `idlePrompt` TEXT NOT NULL, `bannedPhrases` TEXT NOT NULL DEFAULT '', `active` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longName",
+            "columnName": "longName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shortName",
+            "columnName": "shortName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nicknames",
+            "columnName": "nicknames",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "persona",
+            "columnName": "persona",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "examples",
+            "columnName": "examples",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rules",
+            "columnName": "rules",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eagerness",
+            "columnName": "eagerness",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idlePrompt",
+            "columnName": "idlePrompt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bannedPhrases",
+            "columnName": "bannedPhrases",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
+          },
+          {
+            "fieldPath": "active",
+            "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "decisions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `at` INTEGER NOT NULL, `peer` INTEGER NOT NULL, `channel` INTEGER NOT NULL, `triggerMessageId` INTEGER, `idle` INTEGER NOT NULL, `respond` INTEGER NOT NULL, `reason` TEXT NOT NULL, `reply` TEXT, `outcome` TEXT NOT NULL, `latencyMs` INTEGER NOT NULL, `characterId` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "at",
+            "columnName": "at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peer",
+            "columnName": "peer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "channel",
+            "columnName": "channel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "triggerMessageId",
+            "columnName": "triggerMessageId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "idle",
+            "columnName": "idle",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "respond",
+            "columnName": "respond",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "reason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reply",
+            "columnName": "reply",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "outcome",
+            "columnName": "outcome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latencyMs",
+            "columnName": "latencyMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "characterId",
+            "columnName": "characterId",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_decisions_at",
+            "unique": false,
+            "columnNames": [
+              "at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_decisions_at` ON `${TABLE_NAME}` (`at`)"
+          }
+        ]
+      },
+      {
+        "tableName": "memories",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nodeNum` INTEGER, `characterId` INTEGER, `text` TEXT NOT NULL, `source` TEXT NOT NULL, `pinned` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nodeNum",
+            "columnName": "nodeNum",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "characterId",
+            "columnName": "characterId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pinned",
+            "columnName": "pinned",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_memories_nodeNum",
+            "unique": false,
+            "columnNames": [
+              "nodeNum"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_memories_nodeNum` ON `${TABLE_NAME}` (`nodeNum`)"
+          }
+        ]
+      },
+      {
+        "tableName": "relationships",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nodeNum` INTEGER NOT NULL, `characterId` INTEGER, `summary` TEXT NOT NULL, `feeling` TEXT NOT NULL, `feelingLocked` INTEGER NOT NULL, `feelingChangedBy` TEXT, `feelingReason` TEXT NOT NULL, `processedUntil` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`nodeNum`))",
+        "fields": [
+          {
+            "fieldPath": "nodeNum",
+            "columnName": "nodeNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "characterId",
+            "columnName": "characterId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "summary",
+            "columnName": "summary",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feeling",
+            "columnName": "feeling",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feelingLocked",
+            "columnName": "feelingLocked",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feelingChangedBy",
+            "columnName": "feelingChangedBy",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "feelingReason",
+            "columnName": "feelingReason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "processedUntil",
+            "columnName": "processedUntil",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "nodeNum"
+          ]
+        }
+      },
+      {
+        "tableName": "feeling_log",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nodeNum` INTEGER NOT NULL, `oldFeeling` TEXT NOT NULL, `newFeeling` TEXT NOT NULL, `changedBy` TEXT NOT NULL, `reason` TEXT NOT NULL, `at` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nodeNum",
+            "columnName": "nodeNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oldFeeling",
+            "columnName": "oldFeeling",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "newFeeling",
+            "columnName": "newFeeling",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changedBy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "reason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "at",
+            "columnName": "at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_feeling_log_nodeNum",
+            "unique": false,
+            "columnNames": [
+              "nodeNum"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_feeling_log_nodeNum` ON `${TABLE_NAME}` (`nodeNum`)"
+          }
+        ]
+      },
+      {
+        "tableName": "positions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nodeNum` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `at` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nodeNum",
+            "columnName": "nodeNum",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "at",
+            "columnName": "at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_positions_nodeNum_at",
+            "unique": false,
+            "columnNames": [
+              "nodeNum",
+              "at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_positions_nodeNum_at` ON `${TABLE_NAME}` (`nodeNum`, `at`)"
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '361f67f58d9e60e54e2b27f71c770448')"
+    ]
+  }
+}

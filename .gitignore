@@ -1,0 +1,16 @@
+.gradle/
+.kotlin/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+captures/
+.cxx/
+*.gguf
+# llama.cpp's own .gitignore re-includes its test vocab files (~100 MB); the app doesn't need them.
+third_party/llama.cpp/models/
+# Release signing (never commit)
+keystore.properties
+*.jks
+*.keystore

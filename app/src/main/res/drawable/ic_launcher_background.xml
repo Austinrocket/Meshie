@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Night-sky gradient with a faint mesh of linked nodes and radio waves behind Meshie. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="0"
+                android:endX="108" android:endY="108"
+                android:startColor="#3B2470"
+                android:centerColor="#26305A"
+                android:endColor="#14524A" />
+        </aapt:attr>
+    </path>
+    <!-- Mesh links -->
+    <path
+        android:pathData="M18,30 L40,20 L70,26 L92,40 M18,30 L22,62 L40,20 M70,26 L86,74 L92,40 M22,62 L30,90 M86,74 L76,94"
+        android:strokeWidth="1"
+        android:strokeColor="#33B9F0E0"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- Mesh nodes -->
+    <path android:fillColor="#665FD39B" android:pathData="M16,30 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0z M38,20 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0z M68,26 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0z M90,40 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0z M20,62 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0z M84,74 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0z M28,90 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0z M74,94 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0z" />
+    <!-- Radio waves behind her -->
+    <path
+        android:pathData="M24,54 A30,30 0 0,1 84,54"
+        android:strokeWidth="2.5"
+        android:strokeColor="#33FF8FC8"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M14,54 A40,40 0 0,1 94,54"
+        android:strokeWidth="2.5"
+        android:strokeColor="#22FF8FC8"
+        android:strokeLineCap="round" />
+</vector>
