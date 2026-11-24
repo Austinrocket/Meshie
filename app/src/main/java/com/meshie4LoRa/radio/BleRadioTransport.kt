@@ -61,6 +61,7 @@ class BleRadioTransport(private val context: Context, private val scope: Corouti
         val CCCD_UUID: UUID = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb")
         private const val OP_TIMEOUT_MS = 10_000L
         private const val RECONNECT_DELAY_MS = 5_000L
+        private const val MAX_RECONNECT_DELAY_MS = 5 * 60_000L
     }
 
     private val _state = MutableStateFlow(LinkState.DISCONNECTED)
@@ -140,16 +141,20 @@ class BleRadioTransport(private val context: Context, private val scope: Corouti
     }
 
     private suspend fun connectLoop(address: String) {
+        // Doubles after each failed attempt so an absent radio doesn't keep the Bluetooth chip busy all day.
+        var wait = RECONNECT_DELAY_MS
         while (scope.isActive && targetAddress == address) {
             if (adapter?.isEnabled != true) {
                 _lastError.value = "Bluetooth is off"
                 _state.value = LinkState.DISCONNECTED
-                delay(RECONNECT_DELAY_MS)
+                delay(wait)
+                wait = (wait * 2).coerceAtMost(MAX_RECONNECT_DELAY_MS)
                 continue
             }
             try {
                 connectOnce(address)
                 _lastError.value = null
+                wait = RECONNECT_DELAY_MS
                 _state.first { it == LinkState.DISCONNECTED }
             } catch (e: TimeoutCancellationException) {
                 // A timeout is a failed attempt, not a cancellation of the loop.
@@ -165,7 +170,8 @@ class BleRadioTransport(private val context: Context, private val scope: Corouti
                 closeGatt()
                 _state.value = LinkState.DISCONNECTED
             }
-            delay(RECONNECT_DELAY_MS)
+            delay(wait)
+            wait = (wait * 2).coerceAtMost(MAX_RECONNECT_DELAY_MS)
         }
     }
 

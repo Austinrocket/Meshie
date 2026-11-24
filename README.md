@@ -39,11 +39,14 @@ No cloud and no internet needed once it's set up.
 - **Memory.** It keeps short notes, a summary and a feeling about each person it talks to, plus things it remembers
   about itself. You can view, edit, pin, lock or wipe all of it.
 - **Brainstorm.** A private side chat with your character to plan posts. Nothing in it is sent to the mesh.
+- **Moods.** The character's messages and feelings earn mood points (Hype, Love, Chaos, Party…) that drive its
+  expression and Pokédex type. Add your own trigger words per mood in the **Word bank**.
 - **Full control over the prompt.** Every prompt template and phrase is editable, there's a live preview of exactly
   what the model sees, and per-field switches decide which mesh data (names, distance, battery, SNR…) it may use.
   It never sees or says raw coordinates.
 - **Built for a phone in your bag.** It runs as a foreground service, survives reboots, reconnects to the radio, and
-  keeps decisions fast with prompt caching.
+  keeps decisions fast with prompt caching. It only keeps the phone awake while the bot can actually act (radio
+  connected, model loaded, bot on), and backs off reconnect attempts while the radio is out of range.
 - **Opt-in welcome tour** that takes a new user from zero to a live character: pick a brain, create a character,
   chat with it, pair the radio, and let it loose.
 
@@ -79,7 +82,16 @@ You can skip the tour and set everything up from the tabs instead, or take it ag
 | **Chan** | Your characters as swipeable Pokédex cards (switch, edit, change the look, import, export), the bot's on/off switch and idle settings, brainstorm, favourites, stats, memory, event notes and the prompt preview |
 | **Feed** | The channel plus every decision the bot made and why. Tap a message to respond, call someone out or see what the bot remembers about them; long-press to star it |
 | **People** | Everyone on the mesh, DMs, and per-person memory (facts, summary, feeling) |
-| **Settings** | **Models** (download, import a `.gguf`, test chat, benchmark), **Context** (behaviour, prompt templates, data access) and **Radio** (pairing, channel, radio name) |
+| **Settings** | **Models** (download, import a `.gguf`, test chat, benchmark), **Context** (behaviour, prompt templates, data access) and **Radio** (pairing, channel, radio name). The red **Quit Meshie** button at the bottom stops the bot and the radio link completely until you open the app again |
+
+### Saving battery
+
+- **Bot off** (Chan page switch) or **Manual** mode: the radio stays connected so the Feed keeps filling, but the
+  phone is allowed to sleep.
+- **Unload** (Settings → Models) frees the model's memory and keeps it unloaded, even after a restart, until you tap
+  **Load**.
+- **Quit Meshie** (bottom of Settings) stops everything. Forgetting the radio on the Radio tab also stops the
+  background service.
 
 ### Models
 

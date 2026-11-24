@@ -45,9 +45,20 @@ class RadioService : LifecycleService() {
 
         wakeLock = getSystemService(PowerManager::class.java)
             .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MeshChan:radio")
-            .apply { acquire() }
+            .apply { setReferenceCounted(false) }
 
         val container = (application as MeshChanApp).container
+        lifecycleScope.launch {
+            // Keep the CPU awake only while the bot can actually act; otherwise let the phone sleep between radio packets.
+            val canWork = combine(container.transport.state, container.engine.state, container.settings.botMode) { link, engine, mode ->
+                link == LinkState.CONNECTED && engine is EngineState.Ready && mode != BotMode.MANUAL
+            }
+            combine(canWork, container.settings.sleepUntil, container.engine.busy, container.engine.state, ticker()) { can, sleep, busy, engine, now ->
+                busy || engine is EngineState.Loading || (can && sleep <= now)
+            }.distinctUntilChanged().collect { hold ->
+                wakeLock?.let { if (hold) it.acquire() else if (it.isHeld) it.release() }
+            }
+        }
         lifecycleScope.launch {
             container.settings.deviceAddress.distinctUntilChanged().collect { address ->
                 if (address != null) container.transport.connect(address) else container.transport.disconnect()
@@ -102,6 +113,8 @@ class RadioService : LifecycleService() {
         (application as MeshChanApp).container.transport.disconnect()
         wakeLock?.let { if (it.isHeld) it.release() }
         super.onDestroy()
+        // After super: the status collector is cancelled, so it can't re-post this.
+        getSystemService(NotificationManager::class.java).cancel(NOTIFICATION_ID)
     }
 
     private fun buildNotification(text: String, title: String = "Meshie"): Notification {

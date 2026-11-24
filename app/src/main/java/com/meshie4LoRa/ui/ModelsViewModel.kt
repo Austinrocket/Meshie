@@ -69,7 +69,7 @@ class ModelsViewModel(app: Application) : AndroidViewModel(app) {
     fun cancelDownload(id: String) = launchSafely("Cancel") { c.models.cancelDownload(id) }
     fun delete(id: String) = launchSafely("Delete") { c.models.delete(id) }
     fun activate(id: String) = launchSafely("Load") { c.models.activate(id) }
-    fun unload() = launchSafely("Unload") { c.engine.unload() }
+    fun unload() = launchSafely("Unload") { c.models.unload() }
     fun addFromUrl(url: String) = launchSafely("Add model") { c.models.addFromUrl(url) }
     fun importFile(uri: Uri) = launchSafely("Import") {
         _toast.value = "Importing…"

@@ -48,7 +48,7 @@ class ModelWatchdog(
             is EngineState.Loading -> return
             else -> Unit
         }
-        if (settings.activeModelId.first() == null) return
+        if (settings.activeModelId.first() == null || settings.modelPaused.first()) return
         val since = notReadySince ?: now.also { notReadySince = it }
         if (now - since < GRACE_MS || now < nextAttemptAt) return
         attempts++

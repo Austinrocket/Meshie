@@ -10,7 +10,9 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
@@ -185,5 +187,28 @@ private fun SettingsScreen(
             SettingsSection.CONTEXT -> ContextSettings(characterVm, inner)
             SettingsSection.RADIO -> RadioScreen(vm, inner)
         }
+        QuitButton(vm)
+    }
+}
+
+@Composable
+private fun QuitButton(vm: MainViewModel) {
+    val activity = LocalContext.current as android.app.Activity
+    var confirm by rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    androidx.compose.material3.Button(
+        onClick = { confirm = true },
+        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+            containerColor = androidx.compose.ui.graphics.Color(0xFFD32F2F), contentColor = androidx.compose.ui.graphics.Color.White,
+        ),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp),
+    ) { Text("Quit Meshie") }
+    if (confirm) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { confirm = false },
+            title = { Text("Quit Meshie?") },
+            text = { Text("The bot stops listening and the radio disconnects until you open Meshie again.") },
+            confirmButton = { androidx.compose.material3.TextButton(onClick = { vm.quit(activity) }) { Text("Quit") } },
+            dismissButton = { androidx.compose.material3.TextButton(onClick = { confirm = false }) { Text("Cancel") } },
+        )
     }
 }

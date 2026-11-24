@@ -555,3 +555,16 @@ The arrival reaction already has a switch (Behavior), and it's off.
   Unit test covers parsing + scoring. On the Flip: dialog renders, adding "cool" to Hype scored the existing
   feeling "a cool person" (Hype 2) right away; cleared again. Dropped two swear words from Salty's built-ins
   since the dialog now shows them.
+
+## 2026-11-24 — Battery drain
+- Operator saw Meshie at 16.5% battery with no radio around. Causes found in code: RadioService held a partial
+  wake lock for its whole life (CPU never slept), BLE reconnect retried every 5 s forever, and the watchdog
+  reloaded the model ~1 min after the operator pressed Unload.
+- D56: wake lock only while the bot can act or the model is busy/loading; reconnect backoff 5 s → 5 min;
+  Unload persists as "paused". Builds + unit tests pass; not yet measured on the Flip (phone not connected).
+- Possible extra drain: the old com.meshtasticchan app is still installed and has the same always-on wake lock.
+- Red "Quit Meshie" button at the bottom of Settings (confirm dialog). On the Flip: bot off + Bluetooth off now
+  holds no MeshChan wake lock (before: held forever); Quit leaves no process/notification and nothing restarts
+  after 15 s; Unload stayed unloaded 2 min and across a restart; Load brings it back. First try left a stale
+  ongoing notification (status collector re-posted after cancelAll); now cancelled in RadioService.onDestroy.
+  Old com.meshtasticchan app is no longer installed.

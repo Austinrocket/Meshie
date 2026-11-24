@@ -265,6 +265,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         if (deviceAddress.value != null) RadioService.start(getApplication())
     }
 
+    /** Stops the radio service and ends the process; the saved radio reconnects next time the app is opened. */
+    fun quit(activity: android.app.Activity) {
+        val app = getApplication<Application>()
+        RadioService.stop(app)
+        app.getSystemService(android.app.NotificationManager::class.java).cancelAll()
+        activity.finishAndRemoveTask()
+        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({ android.os.Process.killProcess(android.os.Process.myPid()) }, 500)
+    }
+
     fun setOperatingChannel(index: Int) {
         viewModelScope.launch { c.settings.setOperatingChannel(index) }
     }

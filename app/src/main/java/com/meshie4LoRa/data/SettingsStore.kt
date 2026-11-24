@@ -67,6 +67,7 @@ class SettingsStore(private val context: Context) {
         val deviceName = stringPreferencesKey("device_name")
         val operatingChannel = intPreferencesKey("operating_channel")
         val activeModelId = stringPreferencesKey("active_model_id")
+        val modelPaused = booleanPreferencesKey("model_paused")
         val nCtx = intPreferencesKey("llm_n_ctx")
         val nThreads = intPreferencesKey("llm_n_threads")
         val maxTokens = intPreferencesKey("llm_max_tokens")
@@ -228,6 +229,13 @@ class SettingsStore(private val context: Context) {
     }
 
     val activeModelId: Flow<String?> = context.dataStore.data.map { it[Keys.activeModelId] }
+
+    /** The operator unloaded the model; nothing reloads it until they load one again. */
+    val modelPaused: Flow<Boolean> = context.dataStore.data.map { it[Keys.modelPaused] ?: false }
+
+    suspend fun setModelPaused(paused: Boolean) {
+        context.dataStore.edit { it[Keys.modelPaused] = paused }
+    }
     val llmSettings: Flow<LlmSettings> = context.dataStore.data.map { p ->
         val d = LlmSettings()
         LlmSettings(

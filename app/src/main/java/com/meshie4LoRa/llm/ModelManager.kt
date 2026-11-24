@@ -176,10 +176,17 @@ class ModelManager(
         // Files kept across an app-data wipe come back unverified; check them instead of refusing to load.
         db.models().get(id)?.takeIf { it.sha256 != null && !it.verified && it.downloadId == null && fileOf(it).exists() }?.let { verify(it) }
         settings.setActiveModel(id)
+        settings.setModelPaused(false)
         loadActive()
     }
 
+    suspend fun unload() {
+        settings.setModelPaused(true)
+        engine.unload()
+    }
+
     suspend fun loadActive() {
+        if (settings.modelPaused.first()) return
         val id = settings.activeModelId.first() ?: return
         val m = db.models().get(id) ?: return
         val file = fileOf(m)
